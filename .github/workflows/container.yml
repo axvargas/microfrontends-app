@@ -28,8 +28,10 @@ jobs:
       - name: Build project
         run: npm run build
       
-      - name: Upload dist to s3 bucket
+      - name: Access to aws cli
         uses: chrislennon/action-aws-cli@1.1
+      
+      - name: Upload dist to s3 bucket
         run: aws s3 sync dist s3://$${{ secrets.AWS_S3_BUCKET_NAME}}/container/latest
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
