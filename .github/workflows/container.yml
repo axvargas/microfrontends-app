@@ -15,21 +15,22 @@ default:
 
 jobs:
   build:
+    name: Build container app
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
 
       - name: Install dependencies
-      - run: npm install
+        run: npm install
 
       - name: Build project
-      - run: npm run build
+        run: npm run build
       
       - name: Upload dist to s3 bucket
-      - uses: chrislennon/action-aws-cli@1.1
-      - run: aws s3 sync dist s3://$${{ secrets.AWS_S3_BUCKET_NAME}}/container/latest
+        uses: chrislennon/action-aws-cli@1.1
+        run: aws s3 sync dist s3://$${{ secrets.AWS_S3_BUCKET_NAME}}/container/latest
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
