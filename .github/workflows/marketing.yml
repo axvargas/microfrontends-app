@@ -1,5 +1,5 @@
 
-name: Deploy Container
+name: Deploy Marketing
 
 on:
   workflow_dispatch:
@@ -7,17 +7,17 @@ on:
     branches:
       - master
     paths:
-      - 'container/**'
+      - 'marketing/**'
     
 
 defaults:
   run:
-    working-directory: container
+    working-directory: marketing
 
 
 jobs:
   build:
-    name: Build container app
+    name: Build marketing app
     runs-on: ubuntu-latest
 
     steps:
@@ -29,8 +29,6 @@ jobs:
 
       - name: Build project
         run: npm run build
-        env:
-          PRODUCTION_DOMAIN: ${{ secrets.PRODUCTION_DOMAIN }}
       
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -40,8 +38,9 @@ jobs:
           aws-region: us-east-2
       
       - name: Upload dist to s3 bucket
-        run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME}}/container/latest
+        run: aws s3 sync dist s3://${{ secrets.AWS_S3_BUCKET_NAME}}/marketing/latest
 
       - name: Create invalidation for index.html
-        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID}} --paths '/container/latest/index.html'
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.AWS_DISTRIBUTION_ID}} --paths '/marketing/latest/remoteEntry.js'
+
 
