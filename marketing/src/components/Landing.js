@@ -52,7 +52,7 @@ const Landing = () => {
               color="text.primary"
               gutterBottom
             >
-              Home Page
+              Home Page!
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
               Something short and leading about the collection below—its contents,
