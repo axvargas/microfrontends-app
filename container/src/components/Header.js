@@ -9,7 +9,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import { Link as RouterLink } from 'react-router-dom'
 
 const Header = (props) => {
-  const { signedIn, signedOut} = props;
+  const { signedIn, onSignOut} = props;
   const onClick = () => {
     if (signedIn && onSignOut) {
       onSignOut()
@@ -39,7 +39,6 @@ const Header = (props) => {
             component={RouterLink}
             to="/"
             style={{ textDecoration: 'none', color: 'white' }}
-
           >
             App
           </Typography>
